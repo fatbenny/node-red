@@ -1,0 +1,831 @@
+[
+    {
+        "id": "808210b327546969",
+        "type": "tab",
+        "label": "流程2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6c60fa70a17638bc",
+        "type": "inject",
+        "z": "808210b327546969",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 400,
+        "y": 700,
+        "wires": [
+            [
+                "b2b8dae26e7dc06d",
+                "564eef8cd6e6bf8f"
+            ]
+        ]
+    },
+    {
+        "id": "b2b8dae26e7dc06d",
+        "type": "http request",
+        "z": "808210b327546969",
+        "name": "環保署空品",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://data.moenv.gov.tw/api/v2/AQX_P_432?api_key=******",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 610,
+        "y": 700,
+        "wires": [
+            [
+                "131a9d9be8978adf",
+                "632858ee1464b5ec",
+                "35960557ba01dc0b"
+            ]
+        ]
+    },
+    {
+        "id": "8cc83f668a8e281c",
+        "type": "debug",
+        "z": "808210b327546969",
+        "name": "debug 8",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "131a9d9be8978adf",
+        "type": "change",
+        "z": "808210b327546969",
+        "name": "士林AQI",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.records[9].aqi",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "士林AQI",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 700,
+        "wires": [
+            [
+                "3195290cd5181e5b",
+                "344596dce534efdc",
+                "1784b8c50a3e154f"
+            ]
+        ]
+    },
+    {
+        "id": "3195290cd5181e5b",
+        "type": "debug",
+        "z": "808210b327546969",
+        "name": "debug 9",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "632858ee1464b5ec",
+        "type": "change",
+        "z": "808210b327546969",
+        "name": "士林PM2.5",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.records[9][\"pm2.5\"]",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "士林PM2.5",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 740,
+        "wires": [
+            [
+                "3195290cd5181e5b",
+                "1784b8c50a3e154f"
+            ]
+        ]
+    },
+    {
+        "id": "564eef8cd6e6bf8f",
+        "type": "http request",
+        "z": "808210b327546969",
+        "name": "氣象局天氣",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://opendata.cwa.gov.tw/api/v1/rest/datastore/O-A0001-001?Authorization=*******",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 590,
+        "y": 880,
+        "wires": [
+            [
+                "310fa44410b99e0c",
+                "d2966f0d23d938d6",
+                "4f6741ec68443d08",
+                "74d1210e31b99d63"
+            ]
+        ]
+    },
+    {
+        "id": "310fa44410b99e0c",
+        "type": "debug",
+        "z": "808210b327546969",
+        "name": "debug 10",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "d2966f0d23d938d6",
+        "type": "change",
+        "z": "808210b327546969",
+        "name": "士林氣溫",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.records.Station[68].WeatherElement.AirTemperature",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "士林氣溫",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 960,
+        "wires": [
+            [
+                "9cf7ee8f9b268054",
+                "c0de596c58534441",
+                "1784b8c50a3e154f"
+            ]
+        ]
+    },
+    {
+        "id": "4f6741ec68443d08",
+        "type": "change",
+        "z": "808210b327546969",
+        "name": "士林濕度",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.records.Station[68].WeatherElement.RelativeHumidity",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "士林濕度",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 1000,
+        "wires": [
+            [
+                "9cf7ee8f9b268054",
+                "0f187cbde69fa89e",
+                "1784b8c50a3e154f"
+            ]
+        ]
+    },
+    {
+        "id": "74d1210e31b99d63",
+        "type": "change",
+        "z": "808210b327546969",
+        "name": "士林天氣",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.records.Station[68].WeatherElement.Weather",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "士林天氣",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 1040,
+        "wires": [
+            [
+                "3c899da55c4ee138",
+                "1784b8c50a3e154f",
+                "9cf7ee8f9b268054"
+            ]
+        ]
+    },
+    {
+        "id": "9cf7ee8f9b268054",
+        "type": "debug",
+        "z": "808210b327546969",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "35960557ba01dc0b",
+        "type": "change",
+        "z": "808210b327546969",
+        "name": "取得城鎮",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.records[9].sitename",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "取得城鎮",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 620,
+        "wires": [
+            [
+                "8cc83f668a8e281c"
+            ]
+        ]
+    },
+    {
+        "id": "344596dce534efdc",
+        "type": "ui-gauge",
+        "z": "808210b327546969",
+        "name": "",
+        "group": "3d444c581463bc5b",
+        "order": 2,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-tank",
+        "gstyle": "needle",
+        "title": "空氣品質指標",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "units",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#a8f5ff",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "15",
+                "color": "#55dbec",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "35",
+                "color": "#53b4fd",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "50",
+                "color": "#2397d1",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 0,
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1060,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c0de596c58534441",
+        "type": "ui-gauge",
+        "z": "808210b327546969",
+        "name": "",
+        "group": "fac48080c98087c1",
+        "order": 2,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-34",
+        "gstyle": "needle",
+        "title": "溫度",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "units",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "4",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "7",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 0,
+        "max": "10",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1030,
+        "y": 960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0f187cbde69fa89e",
+        "type": "ui-gauge",
+        "z": "808210b327546969",
+        "name": "濕度",
+        "group": "fac48080c98087c1",
+        "order": 3,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "2",
+        "height": "2",
+        "gtype": "gauge-tank",
+        "gstyle": "needle",
+        "title": "濕度",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "units",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#a8f5ff",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "15",
+                "color": "#55dbec",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "35",
+                "color": "#53b4fd",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "50",
+                "color": "#2397d1",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 0,
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1030,
+        "y": 1000,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3c899da55c4ee138",
+        "type": "ui-text",
+        "z": "808210b327546969",
+        "group": "fac48080c98087c1",
+        "order": 1,
+        "width": 1,
+        "height": 0,
+        "name": "",
+        "label": "目前",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1030,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "1784b8c50a3e154f",
+        "type": "ui-chart",
+        "z": "808210b327546969",
+        "group": "3d444c581463bc5b",
+        "name": "",
+        "label": "chart",
+        "order": 3,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "",
+        "ymax": "",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "3600",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 4,
+        "height": "6",
+        "className": "",
+        "interpolation": "linear",
+        "x": 1050,
+        "y": 1200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5f0fa9119b976e0e",
+        "type": "ui-dropdown",
+        "z": "808210b327546969",
+        "group": "3d444c581463bc5b",
+        "name": "台灣即時影像監視器",
+        "label": "Select Option:",
+        "tooltip": "",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "multiple": false,
+        "chips": false,
+        "clearable": false,
+        "options": [
+            {
+                "label": "民族西路-延平北路口",
+                "value": "244",
+                "type": "str"
+            },
+            {
+                "label": "環河北敦煌",
+                "value": "041",
+                "type": "str"
+            },
+            {
+                "label": "承德中正",
+                "value": "042",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "typeIsComboBox": true,
+        "msgTrigger": "onChange",
+        "x": 860,
+        "y": 1320,
+        "wires": [
+            [
+                "43376f6e3033d13b",
+                "85ca7c10034b329d"
+            ]
+        ]
+    },
+    {
+        "id": "43376f6e3033d13b",
+        "type": "debug",
+        "z": "808210b327546969",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1120,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "85ca7c10034b329d",
+        "type": "ui-template",
+        "z": "808210b327546969",
+        "group": "3d444c581463bc5b",
+        "page": "",
+        "ui": "",
+        "name": "",
+        "order": 4,
+        "width": 5,
+        "height": "6",
+        "head": "",
+        "format": "<template>\n    <div>\n        <h3>即時監視器畫面</h3>\n        <iframe :src=\"iframeUrl\" width=\"100%\" height=\"600px\" style=\"border:none;\">\n        </iframe>\n    </div>\n</template>\n\n<script>\n    export default {\n  data() {\n    return {\n      camId: '042' // 預設值\n    }\n  },\n  computed: {\n    iframeUrl() {\n      return `https://hls.bote.gov.taipei/live/index.html?id=${this.camId}`\n    }\n  },\n  methods: {\n    setCameraId(msg) {\n      if (msg.payload) {\n        this.camId = msg.payload\n      }\n    }\n  },\n  mounted() {\n    this.setCameraId(this.msg) // 載入時執行\n  },\n  watch: {\n    msg: function (newMsg) {\n      this.setCameraId(newMsg)\n    }\n  }\n}\n</script>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1120,
+        "y": 1440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3d444c581463bc5b",
+        "type": "ui-group",
+        "name": "空氣品質",
+        "page": "0048313a2f766dd0",
+        "width": "12",
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "fac48080c98087c1",
+        "type": "ui-group",
+        "name": "士林地區",
+        "page": "0048313a2f766dd0",
+        "width": "12",
+        "height": 1,
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "0048313a2f766dd0",
+        "type": "ui-page",
+        "name": "天氣與空氣品質",
+        "ui": "9ee7cf45b1df1cab",
+        "path": "/page1",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "ba9c45e3780ce84f",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "9ee7cf45b1df1cab",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": true
+    },
+    {
+        "id": "ba9c45e3780ce84f",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#ffffff",
+            "primary": "#0094CE",
+            "bgPage": "#eeeeee",
+            "groupBg": "#ffffff",
+            "groupOutline": "#cccccc"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "d14ecdd87febef8c",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "@flowfuse/node-red-dashboard": "1.27.0"
+        }
+    }
+]
